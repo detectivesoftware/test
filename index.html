@@ -4,54 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>حفريات الإنترنت الاجتماعي | Artifacts of the Social Internet</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@0;1&family=Space+Mono&display=swap" rel="stylesheet">
   
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     
     :root {
-      --bg-light: #fafaf9;
+      --bg-light: #f5ede3;
       --bg-dark: #0a0a0a;
       --surface-light: #ffffff;
-      --surface-dark: #111111;
-      --surface2-light: #f3f2f0;
-      --surface2-dark: #1a1a1a;
-      --border-light: #e7e5e4;
-      --border-dark: #222222;
-      --text-light: #1f2937;
+      --surface-dark: #1a1a1a;
+      --text-light: #2d2420;
       --text-dark: #ededed;
-      --text-muted-light: #6b7280;
-      --text-muted-dark: #888888;
-      
       --era1: #3291ff;
       --era2: #7928ca;
       --era3: #50e3c2;
       --era4: #f5a623;
       --era5: #ff0080;
-      
-      --font-main: 'Dosis', system-ui, sans-serif;
-      --font-mono: 'Geist Mono', monospace;
     }
     
-    /* Light Theme */
     [data-theme="light"] {
       --bg: var(--bg-light);
       --surface: var(--surface-light);
-      --surface2: var(--surface2-light);
-      --border: var(--border-light);
       --text: var(--text-light);
-      --text-muted: var(--text-muted-light);
       color-scheme: light;
     }
     
-    /* Dark Theme */
     [data-theme="dark"] {
       --bg: var(--bg-dark);
       --surface: var(--surface-dark);
-      --surface2: var(--surface2-dark);
-      --border: var(--border-dark);
       --text: var(--text-dark);
-      --text-muted: var(--text-muted-dark);
       color-scheme: dark;
     }
     
@@ -62,22 +44,66 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: var(--font-main);
-      line-height: 1.6;
+      font-family: 'Crimson Text', serif;
+      line-height: 1.8;
       transition: background 0.3s, color 0.3s;
       direction: rtl;
-      position: relative;
     }
     
-    /* GRAIN OVERLAY (Subtle) */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.15;
+    /* ---- HOME SCREEN ---- */
+    .home-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+      text-align: center;
+      gap: 3rem;
+    }
+    
+    .home-screen.hidden {
+      display: none;
+    }
+    
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    
+    .home-title {
+      font-size: clamp(2rem, 8vw, 4rem);
+      font-weight: 700;
+      max-width: 800px;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    
+    .home-subtitle {
+      font-size: 1.3rem;
+      opacity: 0.7;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    
+    .enter-btn {
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      border: 2px solid var(--text);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Crimson Text', serif;
+      letter-spacing: 0.05em;
+    }
+    
+    .enter-btn:hover {
+      background: var(--text);
+      color: var(--bg);
     }
     
     /* ---- CONTROLS ---- */
@@ -87,969 +113,612 @@
       right: 1rem;
       z-index: 999;
       display: flex;
-      gap: 0.7rem;
+      gap: 0.8rem;
       flex-direction: row-reverse;
     }
     
     button.control-btn {
       padding: 0.6rem 1.2rem;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 2px solid var(--text);
       color: var(--text);
-      border-radius: 8px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      font-family: 'Space Mono', monospace;
       font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      font-family: var(--font-main);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    [data-theme="dark"] button.control-btn {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      transition: all 0.3s;
     }
     
     button.control-btn:hover {
-      background: var(--surface2);
-      border-color: var(--text-muted);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      background: var(--text);
+      color: var(--bg);
     }
     
-    [data-theme="dark"] button.control-btn:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    /* ---- ARTIFACT VIEW ---- */
+    .artifact-view {
+      display: none;
+      min-height: 100vh;
+      background: var(--bg);
     }
     
-    /* ---- NAV ---- */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 900;
-      padding: 1rem 2rem;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      transition: all 0.3s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    
-    [data-theme="dark"] nav {
-      background: rgba(10,10,10,0.85);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    
-    .nav-content {
-      max-width: 1200px;
-      margin: 0 auto;
+    .artifact-view.active {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 2rem;
+      flex-direction: column;
     }
     
-    .nav-logo {
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      white-space: nowrap;
-    }
-    
-    .nav-links {
+    /* Timeline Navigation */
+    .timeline {
+      padding: 1.5rem 2rem;
+      background: var(--surface);
+      border-bottom: 2px solid var(--text);
+      overflow-x: auto;
       display: flex;
       gap: 1rem;
-      list-style: none;
+      justify-content: center;
       flex-wrap: wrap;
     }
     
-    .nav-links a {
-      text-decoration: none;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      transition: color 0.2s;
-      padding: 0.3rem 0.6rem;
+    .timeline-item {
+      padding: 0.5rem 1rem;
+      border: 2px solid var(--text);
+      background: transparent;
+      cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      color: var(--text);
+    }
+    
+    .timeline-item.active {
+      background: var(--text);
+      color: var(--bg);
+    }
+    
+    .timeline-item:hover {
+      background: var(--text);
+      color: var(--bg);
+    }
+    
+    /* Artifact Content */
+    .artifact-container {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      padding: 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    @media (max-width: 1024px) {
+      .artifact-container {
+        grid-template-columns: 1fr;
+        padding: 2rem;
+        gap: 2rem;
+      }
+    }
+    
+    .artifact-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      background: linear-gradient(135deg, rgba(50, 145, 255, 0.1), rgba(255, 0, 128, 0.1));
+      border: 2px solid var(--text);
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .artifact-emoji {
+      font-size: 150px;
+      line-height: 1;
+    }
+    
+    .artifact-image {
+      max-width: 100%;
+      max-height: 100%;
       border-radius: 4px;
     }
     
-    .nav-links a:hover {
-      color: var(--text);
+    .artifact-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+    }
+    
+    .artifact-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .artifact-title {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    
+    .artifact-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--text);
+      width: fit-content;
+      margin-bottom: 1rem;
+    }
+    
+    .artifact-description {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+    
+    .artifact-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      padding: 2rem;
+      background: var(--surface);
+      border: 1px solid var(--text);
+      border-radius: 4px;
     }
     
     @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .nav-content { flex-direction: column-reverse; }
-      nav { padding: 0.8rem 1rem; }
-    }
-    
-    /* ---- HERO ---- */
-    .hero {
-      margin-top: 80px;
-      padding: 5rem 2rem;
-      text-align: center;
-      background: linear-gradient(135deg, var(--surface2) 0%, var(--surface) 50%, var(--surface2) 100%);
-      border-bottom: 2px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(50, 145, 255, 0.08) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -50%;
-      left: -20%;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(255, 0, 128, 0.08) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-    
-    .hero h1 {
-      font-size: clamp(2rem, 10vw, 4rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      background: linear-gradient(45deg, var(--era1), var(--era3), var(--era5));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      position: relative;
-      z-index: 2;
-      letter-spacing: -0.02em;
-    }
-    
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      z-index: 2;
-      font-weight: 500;
-    }
-    
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 3rem 0 0 0;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .stat {
-      text-align: center;
-      padding: 1.5rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      transition: all 0.3s;
-    }
-    
-    .stat:hover {
-      border-color: var(--text-muted);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    }
-    
-    [data-theme="dark"] .stat:hover {
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-    }
-    
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--era1), var(--era5));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.5rem;
-    }
-    
-    .stat-label {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-    
-    /* ---- ERAS ---- */
-    .eras-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-    }
-    
-    .era {
-      margin-bottom: 4rem;
-    }
-    
-    .era-header {
-      display: flex;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 2px solid var(--border);
-      position: relative;
-    }
-    
-    .era-header::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      right: 0;
-      height: 2px;
-      width: 80px;
-      background: linear-gradient(90deg, var(--era1), var(--era5));
-      border-radius: 1px;
-    }
-    
-    [data-era="2"] .era-header::after { background: linear-gradient(90deg, var(--era2), var(--era3)); }
-    [data-era="3"] .era-header::after { background: linear-gradient(90deg, var(--era3), var(--era4)); }
-    [data-era="4"] .era-header::after { background: linear-gradient(90deg, var(--era4), var(--era5)); }
-    [data-era="5"] .era-header::after { background: linear-gradient(90deg, var(--era5), var(--era1)); }
-    
-    .era-name {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    
-    .era-number {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin: 0 0.5rem;
-    }
-    
-    [data-era="1"] .era-dot { background: var(--era1); }
-    [data-era="2"] .era-dot { background: var(--era2); }
-    [data-era="3"] .era-dot { background: var(--era3); }
-    [data-era="4"] .era-dot { background: var(--era4); }
-    [data-era="5"] .era-dot { background: var(--era5); }
-    
-    .era-years {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-    }
-    
-    .artifact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-    
-    .artifact-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    [data-theme="dark"] .artifact-card {
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    
-    .artifact-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--era1), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    
-    .artifact-card:hover {
-      border-color: var(--text-muted);
-      transform: translateY(-6px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.15);
-    }
-    
-    [data-theme="dark"] .artifact-card:hover {
-      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
-    }
-    
-    .artifact-card:hover::before {
-      opacity: 1;
-    }
-    
-    .card-header {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-    
-    .card-year {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      min-width: 50px;
-    }
-    
-    .card-era-tag {
-      display: inline-block;
-      padding: 0.25rem 0.6rem;
-      background: rgba(50, 145, 255, 0.1);
-      color: var(--era1);
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    
-    [data-era="2"] .card-era-tag { background: rgba(121, 40, 202, 0.1); color: var(--era2); }
-    [data-era="3"] .card-era-tag { background: rgba(80, 227, 194, 0.1); color: var(--era3); }
-    [data-era="4"] .card-era-tag { background: rgba(245, 166, 35, 0.1); color: var(--era4); }
-    [data-era="5"] .card-era-tag { background: rgba(255, 0, 128, 0.1); color: var(--era5); }
-    
-    .card-image {
-      width: 100%;
-      height: 160px;
-      background: linear-gradient(135deg, var(--era1)15, var(--era5)15);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      color: var(--text-muted);
-      overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    [data-theme="dark"] .card-image {
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
-    }
-    
-    .card-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    
-    .card-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      flex-grow: 1;
-    }
-    
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      padding-top: 0.5rem;
-      border-top: 1px solid var(--border);
-    }
-    
-    .card-type {
-      background: var(--border);
-      padding: 0.3rem 0.6rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-    }
-    
-    /* ---- MODAL ---- */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 1000;
-      padding: 2rem;
-      overflow-y: auto;
-      backdrop-filter: blur(6px);
-      animation: fadeIn 0.3s ease-out;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    .modal-overlay.active {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding-top: 100px;
-    }
-    
-    .modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      max-width: 600px;
-      width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
-      animation: modalSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    
-    [data-theme="dark"] .modal {
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    }
-    
-    @keyframes modalSlide {
-      from {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+      .artifact-facts {
+        grid-template-columns: 1fr;
       }
     }
     
-    .modal-header {
-      padding: 2rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    
-    .modal-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    
-    .modal-year {
-      font-size: 1rem;
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-    }
-    
-    .modal-close {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-muted);
-      transition: color 0.2s;
-    }
-    
-    .modal-close:hover {
-      color: var(--text);
-    }
-    
-    .modal-image {
-      width: 100%;
-      height: 280px;
-      background: linear-gradient(135deg, var(--era1)20, var(--era5)20);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      color: var(--text-muted);
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      box-shadow: inset 0 2px 12px rgba(0,0,0,0.1);
-    }
-    
-    [data-theme="dark"] .modal-image {
-      box-shadow: inset 0 2px 12px rgba(0,0,0,0.3);
-    }
-    
-    .modal-body {
-      padding: 2rem;
+    .fact-item {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-    }
-    
-    .modal-desc {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--text);
-    }
-    
-    .modal-facts {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    
-    .fact {
-      padding: 1.2rem;
-      background: var(--surface2);
-      border-radius: 8px;
-      border-left: 4px solid var(--era1);
-      transition: all 0.3s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-    
-    [data-theme="dark"] .fact {
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    
-    [data-era="2"] .fact { border-left-color: var(--era2); }
-    [data-era="3"] .fact { border-left-color: var(--era3); }
-    [data-era="4"] .fact { border-left-color: var(--era4); }
-    [data-era="5"] .fact { border-left-color: var(--era5); }
-    
-    .fact:hover {
-      border-left-width: 6px;
-      transform: translateX(2px);
     }
     
     .fact-label {
+      font-family: 'Space Mono', monospace;
       font-size: 0.75rem;
-      color: var(--text-muted);
+      opacity: 0.6;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.5rem;
     }
     
     .fact-value {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
-      color: var(--text);
     }
     
-    .modal-source {
-      padding: 1rem;
-      background: var(--bg);
-      border-radius: 6px;
-      border-top: 2px solid var(--border);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      line-height: 1.5;
+    /* Navigation Buttons */
+    .artifact-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 4rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    @media (max-width: 768px) {
+      .artifact-nav {
+        padding: 1rem 2rem;
+      }
+    }
+    
+    .nav-btn {
+      padding: 0.8rem 1.8rem;
+      border: 2px solid var(--text);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font-family: 'Crimson Text', serif;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      letter-spacing: 0.05em;
+    }
+    
+    .nav-btn:hover:not(:disabled) {
+      background: var(--text);
+      color: var(--bg);
+    }
+    
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    
+    .artifact-counter {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      opacity: 0.7;
     }
     
     /* ---- FOOTER ---- */
     footer {
-      background: var(--surface2);
-      border-top: 2px solid var(--border);
-      padding: 4rem 2rem;
+      padding: 2rem;
       text-align: center;
-      margin-top: 5rem;
+      border-top: 2px solid var(--text);
+      margin-top: 2rem;
       font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.8;
-    }
-    
-    footer div {
-      margin: 0.8rem 0;
+      opacity: 0.8;
     }
     
     footer strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-    
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 768px) {
-      .hero { padding: 2rem 1rem; margin-top: 60px; }
-      .hero h1 { font-size: 1.8rem; }
-      .hero-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
-      .eras-container { padding: 2rem 1rem; }
-      .artifact-grid { grid-template-columns: 1fr; }
-      .modal-facts { grid-template-columns: 1fr; }
-      .artifact-card { padding: 1rem; }
-      .controls { top: 0.5rem; right: 0.5rem; }
-      button.control-btn { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+      opacity: 1;
     }
   </style>
 </head>
 
-<body data-theme="dark">
+<body data-theme="light">
 
 <!-- CONTROLS -->
 <div class="controls">
-  <button class="control-btn" onclick="toggleLanguage()" title="تغيير اللغة">
+  <button class="control-btn" onclick="toggleLanguage()">
     <span id="lang-toggle">EN</span>
   </button>
-  <button class="control-btn" onclick="toggleTheme()" title="تبديل المظهر">
-    <span id="theme-toggle">☀️</span>
+  <button class="control-btn" onclick="toggleTheme()">
+    <span id="theme-toggle">🌙</span>
   </button>
 </div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-content">
-    <div class="nav-logo" id="nav-logo">حفريات الإنترنت الاجتماعي</div>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#era1" onclick="scrollToEra(1)">البروتو-سوشيال</a></li>
-      <li><a href="#era2" onclick="scrollToEra(2)">ويب الملفات الشخصية</a></li>
-      <li><a href="#era3" onclick="scrollToEra(3)">عصر الفيد</a></li>
-      <li><a href="#era4" onclick="scrollToEra(4)">الجوال والبصريات</a></li>
-      <li><a href="#era5" onclick="scrollToEra(5)">الخوارزميات</a></li>
-    </ul>
-  </div>
-</nav>
+<!-- HOME SCREEN -->
+<div class="home-screen" id="homeScreen">
+  <div class="logo" id="logo">حفريات</div>
+  <h1 class="home-title" id="homeTitle">حفريات الإنترنت الاجتماعي</h1>
+  <p class="home-subtitle" id="homeSubtitle">استكشف 47 سنة من تاريخ الشبكات الاجتماعية والتواصل الرقمي</p>
+  <button class="enter-btn" onclick="enterArtifacts()" id="enterBtn">ENTER →</button>
+</div>
 
-<!-- HERO -->
-<section class="hero">
-  <h1 id="hero-title">حفريات الإنترنت الاجتماعي</h1>
-  <p id="hero-subtitle">رحلة عبر 47 سنة من الشبكات الاجتماعية والتواصل الرقمي</p>
+<!-- ARTIFACT VIEW -->
+<div class="artifact-view" id="artifactView">
   
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-number">5</div>
-      <div class="stat-label" id="stat-eras">عصور</div>
+  <!-- Timeline -->
+  <div class="timeline" id="timeline"></div>
+  
+  <!-- Artifact Display -->
+  <div class="artifact-container" id="artifactContainer">
+    <div class="artifact-visual">
+      <div class="artifact-emoji" id="artifactEmoji">🌐</div>
     </div>
-    <div class="stat">
-      <div class="stat-number">45+</div>
-      <div class="stat-label" id="stat-artifacts">حفرية</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">1978</div>
-      <div class="stat-label" id="stat-start">منذ سنة</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">∞</div>
-      <div class="stat-label" id="stat-impact">التأثير</div>
-    </div>
-  </div>
-</section>
-
-<!-- ERAS & ARTIFACTS -->
-<div class="eras-container" id="eras-container"></div>
-
-<!-- FOOTER -->
-<footer>
-  <div id="footer-title">حفريات الإنترنت الاجتماعي · 1978–الآن</div>
-  <div id="footer-credits"><strong>🎨 الموقع من إبراهيم (IBRA)</strong></div>
-  <div id="footer-contributors"><strong>💪 مساعدة المحتوى من جمال (chak.alah)</strong></div>
-  <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
-    <div id="footer-sources">المصادر: Neal.fun Internet Artifacts · Internet Archive · Web Design Museum</div>
-  </div>
-</footer>
-
-<!-- MODAL -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModalOnOverlay(event)">
-  <div class="modal" id="modal">
-    <div class="modal-header">
+    
+    <div class="artifact-info">
       <div>
-        <div class="modal-title" id="modal-title">—</div>
-        <div class="modal-year" id="modal-year">—</div>
+        <div class="artifact-year" id="artifactYear">1977</div>
+        <h2 class="artifact-title" id="artifactTitle">Map of ARPANET</h2>
+        <div class="artifact-type" id="artifactType">Network</div>
       </div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-image" id="modal-image">🖼️</div>
-    <div class="modal-body">
-      <div class="modal-desc" id="modal-desc">—</div>
-      <div class="modal-facts" id="modal-facts"></div>
-      <div class="modal-source" id="modal-source">—</div>
+      
+      <p class="artifact-description" id="artifactDescription"></p>
+      
+      <div class="artifact-facts" id="artifactFacts"></div>
     </div>
   </div>
+  
+  <!-- Navigation -->
+  <div class="artifact-nav">
+    <button class="nav-btn" onclick="previousArtifact()" id="prevBtn">← PREV</button>
+    <span class="artifact-counter"><span id="currentIndex">1</span> / <span id="totalCount">18</span></span>
+    <button class="nav-btn" onclick="nextArtifact()" id="nextBtn">NEXT →</button>
+  </div>
+  
+  <!-- Footer -->
+  <footer>
+    <div id="footerTitle">حفريات الإنترنت الاجتماعي · 1978–الآن</div>
+    <div style="margin-top: 1rem; font-size: 0.85rem;">
+      <div><strong id="footerCredits">🎨 الموقع من إبراهيم (IBRA)</strong></div>
+      <div><strong id="footerContributors">💪 مساعدة المحتوى من جمال (chak.alah)</strong></div>
+    </div>
+  </footer>
 </div>
 
 <script>
-let currentLang = 'ar'; // Default to Arabic
-let currentTheme = 'dark';
+let currentLang = 'ar';
+let currentTheme = 'light';
+let currentIndex = 0;
 
-// ============ DATA (SIMPLIFIED) ============
 const artifacts = [
   {
-    era: 1, title_ar: "خريطة ARPANET", title_en: "Map of ARPANET", year: "1977", type_ar: "شبكة", type_en: "Network",
-    desc_ar: "خريطة شبكة ARPANET التي ربطت أول جامعات أمريكية. هذه الشبكة كانت البذرة الأولى للإنترنت الذي نعرفه اليوم. بدأت بـ 111 حاسوب متصلة.",
-    desc_en: "The ARPANET map showing 111 connected computer terminals across US universities. This was the foundation of today's internet.",
-    facts: [["سنة / Year", "1977"], ["عقد / Nodes", "111"], ["المؤسس / Creator", "DARPA"]],
-    emoji: "🌐",
-    source: "ARPANET Report (1977)"
+    era: 1, 
+    title_ar: "خريطة ARPANET",
+    title_en: "Map of ARPANET",
+    year: "1977",
+    type_ar: "شبكة",
+    type_en: "Network",
+    desc_ar: "خريطة شبكة ARPANET التي ربطت أول جامعات أمريكية. هذه الشبكة كانت البذرة الأولى للإنترنت الذي نعرفه اليوم. بدأت بـ 111 حاسوب متصلة عبر خطوط هاتفية بسيطة. كل جامعة وجهة حكومية تنتظر دورها للاتصال والتواصل.",
+    desc_en: "The ARPANET map showing 111 connected computer terminals across US universities. This was the foundation of today's internet. Started with 111 terminals connected through simple phone lines.",
+    facts: [["سنة / Year", "1977"], ["عقد / Nodes", "111"], ["المؤسس / Creator", "DARPA"], ["الأثر / Impact", "Precursor to Internet"]],
+    emoji: "🌐"
   },
   {
-    era: 1, title_ar: "CBBS - أول منتدى", title_en: "CBBS — First BBS", year: "1978", type_ar: "برمجية", type_en: "Software",
-    desc_ar: "أول منتدى نقاشات رقمي في التاريخ. تم إنشاؤه في شيكاغو بواسطة شخصين متحمسين. كان الناس يتصلون عبر الهاتف ليتركوا رسائل.",
-    desc_en: "The world's first bulletin board system. Users dialed in with modems to leave messages. Inspired thousands of BBSs.",
-    facts: [["التاريخ / Date", "February 1978"], ["الموقع / Location", "Chicago"], ["المؤسسان / Creators", "Ward & Randy"]],
-    emoji: "📞",
-    source: "IEEE Spectrum"
+    era: 1,
+    title_ar: "CBBS - أول منتدى",
+    title_en: "CBBS — First BBS",
+    year: "1978",
+    type_ar: "برمجية",
+    type_en: "Software",
+    desc_ar: "أول منتدى نقاشات رقمي في التاريخ. تم إنشاؤه في شيكاغو خلال عاصفة ثلجية. كان الناس يتصلون عبر الهاتف ليتركوا رسائل نصية. ألهم هذا آلاف المنتديات المشابهة حول العالم.",
+    desc_en: "The world's first bulletin board system. Created in Chicago during a blizzard. Users dialed in with modems to leave messages. Inspired thousands of BBSs worldwide.",
+    facts: [["التاريخ / Date", "February 1978"], ["الموقع / Location", "Chicago"], ["المؤسسان / Creators", "Ward & Randy"], ["النوع / Type", "Dial-up BBS"]],
+    emoji: "📞"
   },
   {
-    era: 1, title_ar: "أول بريد عشوائي", title_en: "First Spam Email", year: "1978", type_ar: "بريد", type_en: "Email",
-    desc_ar: "في 1978، أرسل رجل تسويق أول رسالة بريد عشوائية إلى 320 شخص. حققت 13 مليون دولار في المبيعات لكنها غضبت الجميع!",
-    desc_en: "The first spam email ever sent in history. It angered users but generated $13 million in sales.",
-    facts: [["التاريخ / Date", "May 1, 1978"], ["المرسل / Sender", "Gary Thuerk"], ["الفائدة / Profit", "$13-14M"]],
-    emoji: "📧",
-    source: "Computerworld"
+    era: 1,
+    title_ar: "أول بريد عشوائي",
+    title_en: "First Spam Email",
+    year: "1978",
+    type_ar: "بريد",
+    type_en: "Email",
+    desc_ar: "في 1978، أرسل رجل تسويق أول رسالة بريد عشوائي إلى 320 شخص. حققت 13 مليون دولار في المبيعات لكنها غضبت الجميع! ولدت ثقافة البريد العشوائي من هنا.",
+    desc_en: "The first spam email ever sent. Gary Thuerk sent ads to 320 ARPANET users. Generated $13 million in sales but angered everyone. The birth of spam culture.",
+    facts: [["التاريخ / Date", "May 1, 1978"], ["المرسل / Sender", "Gary Thuerk"], ["المستقبلون / Recipients", "320 users"], ["الأرباح / Profit", "$13-14M"]],
+    emoji: "📧"
   },
   {
-    era: 1, title_ar: "USENET - شبكة النقاش", title_en: "USENET - Discussion Network", year: "1979", type_ar: "شبكة", type_en: "Network",
-    desc_ar: "شبكة نقاشات تعمل مثل المنتديات القديمة. كان بإمكان الملايين مناقشة المواضيع عبرها. ولدت ثقافة الإنترنت الأولى.",
-    desc_en: "A discussion network that spread internet culture. Introduced flame wars, FAQs, and anonymous posting.",
-    facts: [["المؤسسان / Founded", "Duke University"], ["السنة / Year", "1979"], ["الذروة / Peak", "Billions posts/year"]],
-    emoji: "💬",
-    source: "Britannica"
+    era: 1,
+    title_ar: "USENET - شبكة النقاش",
+    title_en: "USENET Network",
+    year: "1979",
+    type_ar: "شبكة",
+    type_en: "Network",
+    desc_ar: "شبكة نقاشات تعمل مثل المنتديات القديمة. كان بإمكان الملايين مناقشة المواضيع عبرها. ولدت ثقافة الإنترنت الأولى - النقاشات الحادة والقوية. ساهمت في نشر معايير الإنترنت الأساسية.",
+    desc_en: "A discussion network that shaped internet culture. Introduced flame wars, FAQs, and anonymous posting. Connected thousands of users worldwide. Peak was billions of posts yearly.",
+    facts: [["المؤسسان / Founded", "Duke University"], ["السنة / Year", "1979"], ["الذروة / Peak", "1B+ posts/year"], ["الإرث / Legacy", "Forums culture"]],
+    emoji: "💬"
   },
   {
-    era: 1, title_ar: "الابتسامة الأولى :-)", title_en: "First Smiley :-)", year: "1982", type_ar: "ثقافة", type_en: "Culture",
-    desc_ar: "عالم الحاسوب سكوت اخترع الابتسامة :-) للفصل بين النكات والجد. انتشرت في الإنترنت وتطورت إلى emoji اليوم.",
-    desc_en: "A computer scientist invented :-)  to mark jokes vs serious posts. Now it's emoji and reactions everywhere.",
-    facts: [["التاريخ / Date", "September 19, 1982"], ["المخترع / Creator", "Scott Fahlman"], ["التراث / Legacy", "Emoji + Reactions"]],
-    emoji: "😊",
-    source: "CMU Archives"
+    era: 1,
+    title_ar: "الابتسامة الأولى :-)",
+    title_en: "First Smiley :-)",
+    year: "1982",
+    type_ar: "ثقافة",
+    type_en: "Culture",
+    desc_ar: "عالم الحاسوب سكوت اخترع الابتسامة :-) للفصل بين النكات والجد على الإنترنت. انتشرت في الإنترنت وتطورت إلى emoji اليوم. أول رمز عاطفي في التاريخ الرقمي.",
+    desc_en: "Computer scientist Scott Fahlman invented :-)  to mark jokes. Spread across the internet. Now it's emoji and reactions everywhere. First digital emotion.",
+    facts: [["التاريخ / Date", "September 19, 1982"], ["المخترع / Creator", "Scott Fahlman"], ["الجامعة / University", "Carnegie Mellon"], ["الإرث / Legacy", "Emoji & Reactions"]],
+    emoji: "😊"
   },
   {
-    era: 1, title_ar: "IRC - الدردشة الفورية", title_en: "IRC — Internet Relay Chat", year: "1988", type_ar: "دردشة", type_en: "Chat",
-    desc_ar: "برنامج دردشة فورية جعل الملايين يتحدثون مباشرة. بدأ من فنلندا وانتشر بسرعة. أسس نظام Channels و Nicknames.",
-    desc_en: "Real-time chat invented in Finland. Created channels, nicks, ops model used by Discord, Slack today.",
-    facts: [["السنة / Year", "1988"], ["الموقع / Location", "Finland"], ["المخترع / Creator", "Jarkko Oikarinen"]],
-    emoji: "💬",
-    source: "irc.org"
+    era: 1,
+    title_ar: "IRC - الدردشة الفورية",
+    title_en: "IRC — Internet Relay Chat",
+    year: "1988",
+    type_ar: "دردشة",
+    type_en: "Chat",
+    desc_ar: "برنامج دردشة فورية جعل الملايين يتحدثون مباشرة. بدأ من فنلندا وانتشر بسرعة حول العالم. أسس نظام القنوات والأسماء المستعارة الذي نستخدمه حتى اليوم في Discord و Slack.",
+    desc_en: "Real-time chat invented in Finland. Created channels, nicks, ops model. Used by Discord, Slack, WhatsApp today. Shaped modern communication.",
+    facts: [["السنة / Year", "1988"], ["الموقع / Location", "Finland"], ["المخترع / Creator", "Jarkko Oikarinen"], ["الذروة / Peak", "100K concurrent"]],
+    emoji: "💬"
   },
   {
-    era: 1, title_ar: "أول موقع ويب", title_en: "The World Wide Web", year: "1991", type_ar: "ويب", type_en: "Web",
-    desc_ar: "تيم بيرنرز-لي اخترع الويب وأول موقع. الخادم لا يزال يعمل حتى الآن! كل إنترنت اليوم يقوم على اختراعه.",
-    desc_en: "Tim Berners-Lee invented the web and built the first website. The server is still running today.",
-    facts: [["التاريخ / Date", "December 20, 1990"], ["المخترع / Creator", "Tim Berners-Lee"], ["URL", "info.cern.ch"]],
-    emoji: "🕸️",
-    source: "CERN"
+    era: 1,
+    title_ar: "أول موقع ويب",
+    title_en: "The World Wide Web",
+    year: "1991",
+    type_ar: "ويب",
+    type_en: "Web",
+    desc_ar: "تيم بيرنرز-لي اخترع الويب وأول موقع. الخادم لا يزال يعمل حتى الآن! كل إنترنت اليوم يقوم على اختراعه. بدأ من جزيرة صغيرة بفكرة عبقرية.",
+    desc_en: "Tim Berners-Lee invented the web and built the first website. The server is still running today. Every internet today is built on his invention.",
+    facts: [["التاريخ / Date", "December 20, 1990"], ["المخترع / Creator", "Tim Berners-Lee"], ["URL", "info.cern.ch"], ["الخادم / Server", "NeXT Cube"]],
+    emoji: "🕸️"
   },
   {
-    era: 2, title_ar: "Friendster - الشبكة الاجتماعية الأولى", title_en: "Friendster — Social Pioneer", year: "2002", type_ar: "شبكة", type_en: "Network",
-    desc_ar: "أول شبكة اجتماعية حقيقية. كانت سريعة جداً في البداية لكن خادمها بطيء فأفلست. جاءت MySpace وسرقت فكرتها.",
-    desc_en: "First real social network. Had 115M users but servers were slow. MySpace beat them with better tech.",
-    facts: [["السنة / Year", "2002"], ["الذروة / Peak", "115M users"], ["الإغلاق / Closed", "2015"]],
-    emoji: "🤝",
-    source: "Harvard Digital"
+    era: 2,
+    title_ar: "Friendster",
+    title_en: "Friendster — Social Pioneer",
+    year: "2002",
+    type_ar: "شبكة",
+    type_en: "Network",
+    desc_ar: "أول شبكة اجتماعية حقيقية. كانت سريعة جداً في البداية لكن خادمها بطيء فأفلست. جاءت MySpace وسرقت فكرتها بتكنولوجيا أفضل.",
+    desc_en: "First real social network. Had 115M users but servers were slow. MySpace beat them with better tech. Showed social graphs had commercial value.",
+    facts: [["السنة / Year", "2002"], ["المؤسس / Founder", "Jonathan Abrams"], ["الذروة / Peak", "115M users"], ["الإغلاق / Closed", "2015"]],
+    emoji: "🤝"
   },
   {
-    era: 2, title_ar: "MySpace - الإنترنت الشخصي", title_en: "MySpace — The Personal Web", year: "2003", type_ar: "شبكة", type_en: "Network",
-    desc_ar: "MySpace جعل كل شخص يصمم صفحته الخاصة بـ HTML و CSS. أطلقت نجوم موسيقية. كانت أكبر موقع في أمريكا سنة 2006.",
-    desc_en: "Let users design their own profiles with HTML/CSS. Launched music careers. Was #1 site in USA 2006.",
-    facts: [["السنة / Year", "2003"], ["الذروة / Peak", "#1 US Site 2006"], ["الشراء / Bought by", "News Corp $580M"]],
-    emoji: "🎨",
-    source: "Wired"
+    era: 2,
+    title_ar: "MySpace - الإنترنت الشخصي",
+    title_en: "MySpace — The Personal Web",
+    year: "2003",
+    type_ar: "شبكة",
+    type_en: "Network",
+    desc_ar: "MySpace جعل كل شخص يصمم صفحته الخاصة بـ HTML و CSS. أطلقت نجوم موسيقية. كانت أكبر موقع في أمريكا سنة 2006. الحب الحقيقي للإنترنت الشخصي.",
+    desc_en: "Let users design profiles with HTML/CSS. Launched music careers. Was #1 site in USA 2006. True personal web. News Corp bought it for $580M.",
+    facts: [["السنة / Year", "2003"], ["المؤسسان / Founders", "Tom & Chris"], ["الذروة / Peak", "#1 US Site 2006"], ["الشراء / Bought", "News Corp $580M"]],
+    emoji: "🎨"
   },
   {
-    era: 2, title_ar: "TheFacebook - الشبكة الحقيقية", title_en: "TheFacebook Launch", year: "2004", type_ar: "شبكة", type_en: "Network",
-    desc_ar: "مارك زوكربرج أطلق فيسبوك من غرفة سكنه في هارفارد. طلب اسم حقيقي وصورة حقيقية. ثانية سنة انضم 2/3 الطلاب.",
-    desc_en: "Mark Zuckerberg launched Facebook from his dorm. Required real names and photos. 2/3 of Harvard joined in weeks.",
-    facts: [["التاريخ / Date", "February 4, 2004"], ["المؤسس / Founder", "Mark Zuckerberg, Age 19"], ["أول مليون / 1M", "2004"]],
-    emoji: "👥",
-    source: "First Versions"
+    era: 2,
+    title_ar: "TheFacebook - الشبكة الحقيقية",
+    title_en: "TheFacebook Launch",
+    year: "2004",
+    type_ar: "شبكة",
+    type_en: "Network",
+    desc_ar: "مارك زوكربرج أطلق فيسبوك من غرفة سكنه في هارفارد. طلب اسم حقيقي وصورة حقيقية. ثانية سنة انضم 2/3 طلاب هارفارد! البداية الحقيقية للتواصل الاجتماعي.",
+    desc_en: "Mark Zuckerberg launched Facebook from his dorm. Required real names and photos. 2/3 of Harvard joined in weeks. The real social network begins.",
+    facts: [["التاريخ / Date", "February 4, 2004"], ["المؤسس / Founder", "Mark Zuckerberg, Age 19"], ["أول مليون / 1M Users", "2004"], ["الآن / Now", "3B+ users"]],
+    emoji: "👥"
   },
   {
-    era: 3, title_ar: "YouTube - مشاركة الفيديو", title_en: "YouTube — Video Sharing", year: "2005", type_ar: "فيديو", type_en: "Video",
-    desc_ar: "YouTube جعل الجميع يرفعون فيديوهات. أول فيديو كان عن رجل في حديقة حيوان. الآن مليارات ساعات تُشاهد كل يوم.",
-    desc_en: "YouTube let anyone upload videos. First video: guy at zoo. Now billions of hours watched daily.",
-    facts: [["السنة / Year", "2005"], ["الشراء / Bought by", "Google $1.65B"], ["المشاهدات / Views", "8B+ daily"]],
-    emoji: "📹",
-    source: "YouTube Blog"
+    era: 3,
+    title_ar: "YouTube - مشاركة الفيديو",
+    title_en: "YouTube — Video Sharing",
+    year: "2005",
+    type_ar: "فيديو",
+    type_en: "Video",
+    desc_ar: "YouTube جعل الجميع يرفعون فيديوهات. أول فيديو كان عن رجل في حديقة حيوان. الآن مليارات ساعات تُشاهد كل يوم. غيرت طريقة الإنترنت في المحتوى.",
+    desc_en: "YouTube let anyone upload videos. First video: guy at zoo. Now billions of hours watched daily. Changed the internet forever.",
+    facts: [["السنة / Year", "2005"], ["الشراء / Bought by", "Google $1.65B"], ["المشاهدات / Views", "8B+ daily"], ["الموظفون / Employees", "10K+"]],
+    emoji: "📹"
   },
   {
-    era: 3, title_ar: "Twitter - النصوص القصيرة", title_en: "Twitter — Short Messages", year: "2006", type_ar: "شبكة", type_en: "Network",
-    desc_ar: "تويتر سمح بنصوص 140 حرف فقط. أصبح نافذة العالم على الأخبار. الثورات السياسية تبدأ على تويتر.",
-    desc_en: "Twitter limited posts to 140 characters. Became the news feed of the world. Shaped politics and events.",
-    facts: [["السنة / Year", "2006"], ["الحد / Limit", "140→280 chars"], ["المستخدمون / Users", "500M+"]],
-    emoji: "🐦",
-    source: "Twitter History"
+    era: 3,
+    title_ar: "Twitter - النصوص القصيرة",
+    title_en: "Twitter — Short Messages",
+    year: "2006",
+    type_ar: "شبكة",
+    type_en: "Network",
+    desc_ar: "تويتر سمح بنصوص 140 حرف فقط. أصبح نافذة العالم على الأخبار. الثورات السياسية تبدأ على تويتر. غيرت طريقة نشر الأخبار.",
+    desc_en: "Twitter limited posts to 140 characters. Became the news feed of the world. Shaped politics and events. Changed news forever.",
+    facts: [["السنة / Year", "2006"], ["الحد / Limit", "140→280 chars"], ["المستخدمون / Users", "500M+"], ["الحد الأقصى / Max", "300M daily"]],
+    emoji: "🐦"
   },
   {
-    era: 3, title_ar: "فيس بوك - خاصية الفيد", title_en: "Facebook News Feed", year: "2006", type_ar: "فيديو", type_en: "Feed",
-    desc_ar: "فيسبوك أضاف 'الفيد' الذي يعرض جميع المنشورات من الأصدقاء. كان تغييراً ثورياً. الآن كل تطبيق له فيد.",
-    desc_en: "Facebook introduced News Feed. Revolutionary at first, users hated it. Now every app has a feed.",
-    facts: [["التاريخ / Date", "September 5, 2006"], ["التأثير / Impact", "Changed social media"], ["الآن / Now", "Every app"]],
-    emoji: "📰",
-    source: "Facebook Blog"
+    era: 3,
+    title_ar: "فيس بوك - خاصية الفيد",
+    title_en: "Facebook News Feed",
+    year: "2006",
+    type_ar: "فيد",
+    type_en: "Feed",
+    desc_ar: "فيسبوك أضاف 'الفيد' الذي يعرض جميع المنشورات من الأصدقاء. كان تغييراً ثورياً. الآن كل تطبيق له فيد. هذا الاختراع غيرّ الإنترنت كله.",
+    desc_en: "Facebook introduced News Feed. Revolutionary, changed social media forever. Now every app has a feed. This invention shaped modern internet.",
+    facts: [["التاريخ / Date", "September 5, 2006"], ["المؤثر / Impact", "Changed social media"], ["الآن / Now", "Every app has feed"], ["الخوارزمية / Algorithm", "Personalized"]],
+    emoji: "📰"
   },
   {
-    era: 4, title_ar: "Instagram - الصور والفلاتر", title_en: "Instagram — Visual Posts", year: "2010", type_ar: "صور", type_en: "Photos",
-    desc_ar: "Instagram جعل الصور بسيطة وجميلة مع فلاتر جاهزة. صار تطبيق البنات الأساسي. فيسبوك اشتراه بـ 1 مليار.",
-    desc_en: "Instagram made photos simple with beautiful filters. Became #1 app for photos. Facebook bought it for $1B.",
-    facts: [["السنة / Year", "2010"], ["المؤسسان / Founders", "Kevin & Mike"], ["الشراء / Bought", "Facebook $1B"]],
-    emoji: "📸",
-    source: "Instagram Blog"
+    era: 4,
+    title_ar: "Instagram - الصور والفلاتر",
+    title_en: "Instagram — Visual Posts",
+    year: "2010",
+    type_ar: "صور",
+    type_en: "Photos",
+    desc_ar: "Instagram جعل الصور بسيطة وجميلة مع فلاتر جاهزة. صار تطبيق البنات الأساسي. فيسبوك اشتراه بـ 1 مليار دولار. الصور أصبحت اللغة الأولى.",
+    desc_en: "Instagram made photos simple with beautiful filters. Became #1 app for photos. Facebook bought it for $1B. Photos became the language.",
+    facts: [["السنة / Year", "2010"], ["الموظفون / Founders", "Kevin & Mike"], ["الشراء / Bought", "Facebook $1B"], ["المستخدمون / Users", "2B+"]],
+    emoji: "📸"
   },
   {
-    era: 4, title_ar: "Snapchat - الرسائل المؤقتة", title_en: "Snapchat — Disappearing Messages", year: "2011", type_ar: "رسائل", type_en: "Messaging",
-    desc_ar: "سناب تشات جعل الصور تختفي بعد ثوان. بدأ كلعبة لكن صار جداً شهير بين الشباب والمراهقين.",
-    desc_en: "Snapchat made messages disappear in seconds. Became huge with teens. Introduced Stories everyone copied.",
-    facts: [["السنة / Year", "2011"], ["المؤسسان / Founders", "Evan Spiegel"], ["المستخدمون / Users", "400M+"]],
-    emoji: "👻",
-    source: "Snapchat"
+    era: 4,
+    title_ar: "Snapchat - الرسائل المؤقتة",
+    title_en: "Snapchat — Disappearing Messages",
+    year: "2011",
+    type_ar: "رسائل",
+    type_en: "Messaging",
+    desc_ar: "سناب تشات جعل الصور تختفي بعد ثوان. بدأ كلعبة لكن صار جداً شهير بين الشباب. أخترع خاصية الستوريز التي نسخها الكل.",
+    desc_en: "Snapchat made messages disappear in seconds. Became huge with teens. Introduced Stories everyone copied. Changed messaging forever.",
+    facts: [["السنة / Year", "2011"], ["المؤسسان / Founder", "Evan Spiegel"], ["المستخدمون / Users", "400M+"], ["الخاصية / Feature", "Stories"]],
+    emoji: "👻"
   },
   {
-    era: 5, title_ar: "TikTok - الفيديو القصير", title_en: "TikTok — Short Videos", year: "2016", type_ar: "فيديو", type_en: "Video",
-    desc_ar: "TikTok جعل الفيديو القصير ملك الإنترنت. الخوارزمية تعرف ما تحب قبل ما تعرفه أنت! 3 مليار مستخدم.",
-    desc_en: "TikTok made short videos the king. Algorithm knows what you want. 3 billion users worldwide.",
-    facts: [["السنة / Year", "2016"], ["الشركة / Company", "ByteDance"], ["المستخدمون / Users", "3B+"]],
-    emoji: "🎵",
-    source: "TikTok"
+    era: 5,
+    title_ar: "TikTok - الفيديو القصير",
+    title_en: "TikTok — Short Videos",
+    year: "2016",
+    type_ar: "فيديو",
+    type_en: "Video",
+    desc_ar: "TikTok جعل الفيديو القصير ملك الإنترنت. الخوارزمية تعرف ما تحب قبل ما تعرفه أنت! 3 مليار مستخدم حول العالم. الفيديو هو المستقبل.",
+    desc_en: "TikTok made short videos the king. Algorithm knows what you want. 3 billion users worldwide. Video is the future of internet.",
+    facts: [["السنة / Year", "2016"], ["الشركة / Company", "ByteDance"], ["المستخدمون / Users", "3B+"], ["المشاهدات / Views", "1T+ monthly"]],
+    emoji: "🎵"
   }
 ];
 
-// ============ TRANSLATIONS ============
 const translations = {
   ar: {
-    'nav-logo': 'حفريات الإنترنت الاجتماعي',
-    'hero-title': 'حفريات الإنترنت الاجتماعي',
-    'hero-subtitle': 'رحلة عبر 47 سنة من الشبكات الاجتماعية والتواصل الرقمي',
-    'stat-eras': 'عصور',
-    'stat-artifacts': 'حفرية',
-    'stat-start': 'منذ سنة',
-    'stat-impact': 'التأثير',
-    'footer-title': 'حفريات الإنترنت الاجتماعي · 1978–الآن',
-    'footer-credits': '🎨 الموقع من إبراهيم (IBRA)',
-    'footer-contributors': '💪 مساعدة المحتوى من جمال (chak.alah)',
-    'footer-sources': 'المصادر: Neal.fun Internet Artifacts · Internet Archive · Web Design Museum',
+    'logo': 'حفريات',
+    'homeTitle': 'حفريات الإنترنت الاجتماعي',
+    'homeSubtitle': 'استكشف 47 سنة من تاريخ الشبكات الاجتماعية والتواصل الرقمي',
+    'enterBtn': 'ENTER →',
+    'prevBtn': '← PREV',
+    'nextBtn': 'NEXT →',
+    'footerTitle': 'حفريات الإنترنت الاجتماعي · 1978–الآن',
+    'footerCredits': '🎨 الموقع من إبراهيم (IBRA)',
+    'footerContributors': '💪 مساعدة المحتوى من جمال (chak.alah)',
   },
   en: {
-    'nav-logo': 'Artifacts of Social Internet',
-    'hero-title': 'Artifacts of the Social Internet',
-    'hero-subtitle': 'A journey through 47 years of social networks and digital communication',
-    'stat-eras': 'Eras',
-    'stat-artifacts': 'Artifacts',
-    'stat-start': 'Since Year',
-    'stat-impact': 'Impact',
-    'footer-title': 'Artifacts of the Social Internet · 1978–Present',
-    'footer-credits': '🎨 Website by Ibrahim (IBRA)',
-    'footer-contributors': '💪 Content help by Jamal (chak.alah)',
-    'footer-sources': 'Sources: Neal.fun Internet Artifacts · Internet Archive · Web Design Museum',
+    'logo': 'ARTIFACTS',
+    'homeTitle': 'Artifacts of the Social Internet',
+    'homeSubtitle': 'Explore 47 years of social networks and digital communication',
+    'enterBtn': 'ENTER →',
+    'prevBtn': '← PREV',
+    'nextBtn': 'NEXT →',
+    'footerTitle': 'Artifacts of the Social Internet · 1978–Present',
+    'footerCredits': '🎨 Website by Ibrahim (IBRA)',
+    'footerContributors': '💪 Content help by Jamal (chak.alah)',
   }
 };
 
-const eraNames = {
-  ar: ['البروتو-سوشيال', 'ويب الملفات الشخصية', 'عصر الفيد', 'الجوال والبصريات', 'الخوارزميات'],
-  en: ['Proto-Social', 'Profile Web', 'Feed Era', 'Mobile & Visual', 'Algorithmic']
-};
-
-const eraYears = {
-  ar: ['1978–1996', '1997–2006', '2005–2012', '2010–2019', '2020–الآن'],
-  en: ['1978–1996', '1997–2006', '2005–2012', '2010–2019', '2020–Present']
-};
-
-// ============ RENDER ============
-function renderEras() {
-  const container = document.getElementById('eras-container');
-  container.innerHTML = '';
-  
-  for (let era = 1; era <= 5; era++) {
-    const eraArtifacts = artifacts.filter(a => a.era === era);
-    
-    const eraDiv = document.createElement('div');
-    eraDiv.className = 'era';
-    eraDiv.id = `era${era}`;
-    eraDiv.setAttribute('data-era', era);
-    
-    const headerDiv = document.createElement('div');
-    headerDiv.className = 'era-header';
-    headerDiv.innerHTML = `
-      <div class="era-dot"></div>
-      <div>
-        <div class="era-number">${currentLang === 'ar' ? 'عصر' : 'ERA'} ${String(era).padStart(2, '0')}</div>
-        <div class="era-name">${eraNames[currentLang][era - 1]}</div>
-        <div class="era-years">${eraYears[currentLang][era - 1]}</div>
-      </div>
-    `;
-    
-    const gridDiv = document.createElement('div');
-    gridDiv.className = 'artifact-grid';
-    
-    eraArtifacts.forEach((art, idx) => {
-      const card = document.createElement('div');
-      card.className = 'artifact-card';
-      card.setAttribute('data-era', era);
-      card.onclick = () => openModal(artifacts.indexOf(art));
-      
-      const title = currentLang === 'ar' ? art.title_ar : art.title_en;
-      const type = currentLang === 'ar' ? art.type_ar : art.type_en;
-      const desc = currentLang === 'ar' ? art.desc_ar : art.desc_en;
-      
-      card.innerHTML = `
-        <div class="card-header">
-          <span class="card-year">${art.year}</span>
-          <span class="card-era-tag">${type}</span>
-        </div>
-        <div class="card-image">${art.emoji}</div>
-        <div class="card-title">${title}</div>
-        <div class="card-desc">${desc}</div>
-        <div class="card-footer">
-          <span class="card-type">${art.source.split('(')[0].trim()}</span>
-          <span>→</span>
-        </div>
-      `;
-      
-      gridDiv.appendChild(card);
-    });
-    
-    eraDiv.appendChild(headerDiv);
-    eraDiv.appendChild(gridDiv);
-    container.appendChild(eraDiv);
-  }
-}
-
-function openModal(idx) {
-  const art = artifacts[idx];
-  const title = currentLang === 'ar' ? art.title_ar : art.title_en;
-  const desc = currentLang === 'ar' ? art.desc_ar : art.desc_en;
-  
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-year').textContent = art.year;
-  document.getElementById('modal-image').textContent = art.emoji;
-  document.getElementById('modal-desc').textContent = desc;
-  
-  let factsHTML = '';
-  art.facts.forEach(fact => {
-    factsHTML += `<div class="fact">
-      <div class="fact-label">${fact[0]}</div>
-      <div class="fact-value">${fact[1]}</div>
-    </div>`;
-  });
-  document.getElementById('modal-facts').innerHTML = factsHTML;
-  
-  document.getElementById('modal-source').textContent = art.source;
-  document.getElementById('modal-overlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal() {
-  document.getElementById('modal-overlay').classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
-
-function closeModalOnOverlay(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeModal();
-}
-
-function updateTranslations() {
+function updateUI() {
   Object.keys(translations[currentLang]).forEach(key => {
     const el = document.getElementById(key);
     if (el) el.textContent = translations[currentLang][key];
   });
-  renderEras();
+}
+
+function enterArtifacts() {
+  document.getElementById('homeScreen').classList.add('hidden');
+  document.getElementById('artifactView').classList.add('active');
+  renderTimeline();
+  showArtifact(0);
+}
+
+function renderTimeline() {
+  const timeline = document.getElementById('timeline');
+  timeline.innerHTML = '';
+  const years = [...new Set(artifacts.map(a => a.year))].sort((a, b) => a - b);
+  years.forEach((year, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'timeline-item';
+    btn.textContent = year;
+    btn.onclick = () => {
+      const firstInYear = artifacts.findIndex(a => a.year === year);
+      showArtifact(firstInYear);
+    };
+    timeline.appendChild(btn);
+  });
+}
+
+function showArtifact(idx) {
+  currentIndex = idx;
+  const art = artifacts[idx];
+  
+  const title = currentLang === 'ar' ? art.title_ar : art.title_en;
+  const desc = currentLang === 'ar' ? art.desc_ar : art.desc_en;
+  const type = currentLang === 'ar' ? art.type_ar : art.type_en;
+  
+  document.getElementById('artifactYear').textContent = art.year;
+  document.getElementById('artifactTitle').textContent = title;
+  document.getElementById('artifactType').textContent = type;
+  document.getElementById('artifactEmoji').textContent = art.emoji;
+  document.getElementById('artifactDescription').textContent = desc;
+  document.getElementById('currentIndex').textContent = idx + 1;
+  document.getElementById('totalCount').textContent = artifacts.length;
+  
+  // Update facts
+  let factsHTML = '';
+  art.facts.forEach(fact => {
+    factsHTML += `<div class="fact-item">
+      <div class="fact-label">${fact[0]}</div>
+      <div class="fact-value">${fact[1]}</div>
+    </div>`;
+  });
+  document.getElementById('artifactFacts').innerHTML = factsHTML;
+  
+  // Update buttons
+  document.getElementById('prevBtn').disabled = idx === 0;
+  document.getElementById('nextBtn').disabled = idx === artifacts.length - 1;
+  
+  // Update timeline
+  document.querySelectorAll('.timeline-item').forEach((item, i) => {
+    item.classList.remove('active');
+    if (item.textContent === art.year) item.classList.add('active');
+  });
+}
+
+function nextArtifact() {
+  if (currentIndex < artifacts.length - 1) {
+    showArtifact(currentIndex + 1);
+  }
+}
+
+function previousArtifact() {
+  if (currentIndex > 0) {
+    showArtifact(currentIndex - 1);
+  }
 }
 
 function toggleLanguage() {
@@ -1057,35 +726,39 @@ function toggleLanguage() {
   document.documentElement.lang = currentLang;
   document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
   document.getElementById('lang-toggle').textContent = currentLang === 'ar' ? 'EN' : 'AR';
-  updateTranslations();
+  updateUI();
+  if (document.getElementById('artifactView').classList.contains('active')) {
+    showArtifact(currentIndex);
+  }
   localStorage.setItem('language', currentLang);
 }
 
 function toggleTheme() {
-  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
   document.body.dataset.theme = currentTheme;
-  document.getElementById('theme-toggle').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+  document.getElementById('theme-toggle').textContent = currentTheme === 'light' ? '☀️' : '🌙';
   localStorage.setItem('theme', currentTheme);
 }
 
-// ============ INIT ============
+// Keyboard Navigation
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('artifactView').classList.contains('active')) {
+    if (e.key === 'ArrowRight') nextArtifact();
+    if (e.key === 'ArrowLeft') previousArtifact();
+  }
+});
+
+// Init
 window.addEventListener('DOMContentLoaded', () => {
   currentLang = localStorage.getItem('language') || 'ar';
-  currentTheme = localStorage.getItem('theme') || 'dark';
-  
+  currentTheme = localStorage.getItem('theme') || 'light';
   document.body.dataset.theme = currentTheme;
   document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
   document.documentElement.lang = currentLang;
-  
   document.getElementById('lang-toggle').textContent = currentLang === 'ar' ? 'EN' : 'AR';
-  document.getElementById('theme-toggle').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-  
-  updateTranslations();
+  document.getElementById('theme-toggle').textContent = currentTheme === 'light' ? '☀️' : '🌙';
+  updateUI();
 });
-
-function scrollToEra(n) {
-  document.getElementById(`era${n}`)?.scrollIntoView({ behavior: 'smooth' });
-}
 </script>
 
 </body>
